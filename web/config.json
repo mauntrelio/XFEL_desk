@@ -1,0 +1,18 @@
+{
+  "SERVER_ADDRESS": "0.0.0.0",
+  "SERVER_PORT": 5000,
+  "SERVER_MULTITHREADED": true,
+  "STATIC_URL_PREFIX": "/static",
+  "STATIC_CACHE" : 604800,
+  "SERIAL_PORT": "/dev/ttyUSB0",
+  "ROUTE": {
+    "GET": {
+      "/": "default_response"
+    },
+    "POST": {
+      "/up": "up",
+      "/down": "down",
+      "/stop": "stop"
+    }
+  }
+}
