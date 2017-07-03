@@ -1,3 +1,15 @@
 @import url('fonts.css');
 @import url('bootstrap.min.css');
 @import url('bootstrap-theme.min.css');
+
+
+form {
+ margin: 7% auto;
+ text-align: center;
+}
+
+form .btn-group-lg>.btn, .btn-lg {
+    padding: 20px;
+    font-size: 100px;
+    margin: 0 3%;
+}
