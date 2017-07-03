@@ -6,7 +6,7 @@ var XTable = (function($,window,document,undefined) {
 
   var bind_buttons = function () {
 
-    $(".table-control").on("mousedown",function(event){
+    $(".table-control").on("mousedown touchstart",function(event){
       
       if (event.repeat != undefined) {
         allowEvent = !event.repeat;
@@ -19,7 +19,7 @@ var XTable = (function($,window,document,undefined) {
       $.post("/"+command);
     });
 
-    $(".table-control").on("mouseup",function(){
+    $(".table-control").on("mouseup touchend",function(){
       $.post("/stop");
       allowEvent = true;
     });
@@ -41,23 +41,24 @@ var XTable = (function($,window,document,undefined) {
     });
 
     document.addEventListener("keydown", function(event) {
-      if (event.repeat != undefined) {
-        allowEvent = !event.repeat;
-      }
-      if (!allowEvent) return;
-      
-      allowEvent = false;
-
       var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
       if (command) {
+        if (event.repeat != undefined) {
+          allowEvent = !event.repeat;
+        }
+        if (!allowEvent) return;
+        allowEvent = false;
         $.post("/"+command);
       }
 	  });
 
     document.addEventListener("keyup", function(event) {
-      $.post("/stop");
-      allowEvent = true;
-      });
+      var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
+      if (command) {
+        $.post("/stop");
+        allowEvent = true;
+      }  
+    });
 
   }
 
