@@ -47,12 +47,12 @@ void goDown() {
 
 
 // read command from serial
-// do never execute more one direction more than one minute
+// do never execute more one direction more than 30 seconds
 void loop() {
 
   // get current millisecond of loop
   unsigned long currentMillis = millis();
-  if (currentStatus!= 0 && (currentMillis - lastGo) > 10*1000) {
+  if (currentStatus!= 0 && (currentMillis - lastGo) > 30*1000) {
     stop();
   }
 
