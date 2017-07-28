@@ -1,4 +1,4 @@
-# Control XFEL office table via web
+# Control XFEL office desk via web
 
 Arduino + Relays + RJ45 + PC + Python
 
