@@ -12,7 +12,11 @@
     "POST": {
       "/up": "up",
       "/down": "down",
-      "/stop": "stop"
+      "/stop": "stop",
+      "/0": "zero",
+      "/1": "one",
+      "/2": "two",
+      "/3": "three"
     }
   }
 }

@@ -5,7 +5,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		
+
 		<link rel="manifest" href="/static/manifest.json">
 		<link rel="icon" href="/static/img/launcher-icon-1x.png" type="image/png" />
 		<link rel="apple-touch-icon" href="/static/img/launcher-icon-1x.png">
@@ -18,10 +18,9 @@
 	<body>
 
 	<div class="container"
-		<div class="row">
+    <div class="row">
 			<div class="col-xs-12">
-
-				<form>
+        <form class="directions">
 
 	        <button type="button" class="btn btn-primary btn-lg table-control" data-command="up" data-keys="ArrowUp,Numpad8,U,u">
            <span class="glyphicon glyphicon-triangle-top"></span>
@@ -31,8 +30,20 @@
            <span class="glyphicon glyphicon-triangle-bottom"></span>
            </button>
 
-				</form>
-	
+         </form>
+
+			</div>
+		</div>
+    <div class="row">
+			<div class="col-xs-12">
+        <form class="fan">
+
+	        <button type="button" class="btn btn-primary btn-lg table-control" data-command="0" data-keys="'0'"> 0 </button>
+	        <button type="button" class="btn btn-primary btn-lg table-control" data-command="1" data-keys="'1'"> 1 </button>
+	        <button type="button" class="btn btn-primary btn-lg table-control" data-command="2" data-keys="'2'"> 2 </button>
+	        <button type="button" class="btn btn-primary btn-lg table-control" data-command="3" data-keys="'3'"> 3 </button>
+
+        </form>
 			</div>
 		</div>
 	</div>

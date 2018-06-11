@@ -23,6 +23,26 @@ class TableHandler(RPiHTTPRequestHandler):
     self.server.serial.write("D")
     self.render_template()
 
+  # POST /1
+  def zero(self):
+    self.server.serial.write("0")
+    self.render_template()
+
+  # POST /1
+  def one(self):
+    self.server.serial.write("1")
+    self.render_template()
+
+  # POST /2
+  def two(self):
+    self.server.serial.write("2")
+    self.render_template()
+
+  # POST /3
+  def three(self):
+    self.server.serial.write("3")
+    self.render_template()
+
   # POST /stop
   def stop(self):
     self.server.serial.write("X")
@@ -54,7 +74,7 @@ def main():
   # quick access to config params
   config = WebServer.server.config
 
-  # start serial and pass to web server 
+  # start serial and pass to web server
   WebServer.server.serial = serial.Serial(config["SERIAL_PORT"], baudrate = 9600)
 
   # start the web server

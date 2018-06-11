@@ -4,12 +4,18 @@
 
 
 form {
- margin: 7% auto;
+ margin: 3% auto;
  text-align: center;
 }
 
-form .btn-group-lg>.btn, .btn-lg {
+form.directions .btn-group-lg>.btn, form.directions .btn-lg {
     padding: 20px;
     font-size: 100px;
     margin: 0 3%;
+}
+
+form.fan .btn-group-lg>.btn, form.fan .btn-lg {
+    padding: 0 2%;
+    font-size: 80px;
+    margin: 0 1%;
 }
