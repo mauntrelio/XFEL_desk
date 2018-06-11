@@ -7,14 +7,14 @@ var XTable = (function($,window,document,undefined) {
   var bind_buttons = function () {
 
     $(".table-control").on("mousedown touchstart",function(event){
-      
+
       if (event.repeat != undefined) {
         allowEvent = !event.repeat;
       }
       if (!allowEvent) return;
-      
+
       allowEvent = false;
-      
+
       var command = $(this).data("command");
       $.post("/"+command);
     });
@@ -42,6 +42,7 @@ var XTable = (function($,window,document,undefined) {
 
     document.addEventListener("keydown", function(event) {
       var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
+      console.log(command);
       if (command) {
         if (event.repeat != undefined) {
           allowEvent = !event.repeat;
@@ -54,10 +55,11 @@ var XTable = (function($,window,document,undefined) {
 
     document.addEventListener("keyup", function(event) {
       var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
-      if (command) {
+      console.log(command);
+      if (command === "up" || command === "down") {
         $.post("/stop");
         allowEvent = true;
-      }  
+      }
     });
 
   }
