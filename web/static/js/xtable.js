@@ -42,7 +42,6 @@ var XTable = (function($,window,document,undefined) {
 
     document.addEventListener("keydown", function(event) {
       var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
-      console.log(command);
       if (command) {
         if (event.repeat != undefined) {
           allowEvent = !event.repeat;
@@ -55,7 +54,6 @@ var XTable = (function($,window,document,undefined) {
 
     document.addEventListener("keyup", function(event) {
       var command = (mapping[event.code]) ? mapping[event.code] : mapping[event.key];
-      console.log(command);
       if (command === "up" || command === "down") {
         $.post("/stop");
         allowEvent = true;

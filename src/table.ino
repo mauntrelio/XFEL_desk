@@ -4,19 +4,22 @@
 
 #include <Arduino.h>
 
+const int MAX_MOVING_TIME = 20;
+const int minDist = 50;
+const int maxDist = 100;
+
 const int pinUp = 2;
 const int pinDown = 3;
 const int pinFan = 5;
 const int trigPin = 9;
 const int echoPin = 10;
 
-const int minDist = 55;
-const int maxDist = 105;
-
 char receivedChar;
 int currentStatus = 0;
 unsigned long lastGo = 0;
+unsigned long lastPrint = 0;
 
+// control a USB fan
 void fan(int speed) {
   analogWrite(pinFan, speed);
 }
@@ -54,6 +57,7 @@ void setup()  {
   digitalWrite(pinUp, HIGH);
   digitalWrite(pinDown, HIGH);
 
+  // start with fan off
   fan(0);
 }
 
@@ -82,30 +86,46 @@ void goDown() {
 }
 
 // read command from serial
-// do never execute more one direction more than 15 seconds
+// do never execute more one direction more than MAX_MOVING_TIME seconds
 void loop() {
 
-  int dist = distance();
-
+  int height;
   // get current millisecond of loop
   unsigned long currentMillis = millis();
-  if (currentStatus!= 0 && (currentMillis - lastGo) > 15*1000) {
+
+  // if we are moving
+  if (currentStatus!= 0) {
+    // get the height of the table
+    height = distance();
+    // print distance from table every half a second
+    if ((currentMillis - lastPrint) > 500) {
+      Serial.println(height);
+      lastPrint = millis();
+    }
+
+    // stop moving if we are doing it for more than MAX_MOVING_TIME seconds
+    if ((currentMillis - lastGo) > MAX_MOVING_TIME*1000) {
+      Serial.println("Stopping while going beacuse max time reached");
+      stop();
+    }
+  }
+
+  // stop raising if height > maxDist
+  // if the height measures more than 3000 cm this is a wrong read (misplaced sensor?): ignore it
+  if (currentStatus == pinUp && height >= maxDist && height < 3000) {
+    Serial.print("Stopping while going up beacuse height =");
+    Serial.println(height);
     stop();
   }
 
-  if (currentStatus == pinUp && dist >= maxDist) {
-    Serial.print("Stopping while going up beacuse dist =");
-    Serial.println(dist);
+  // stop lowering if height < minDist
+  if (currentStatus == pinDown && height <= minDist) {
+    Serial.print("Stopping while going down beacuse height =");
+    Serial.println(height);
     stop();
   }
 
-  if (currentStatus == pinDown && dist <= minDist) {
-    Serial.print("Stopping while going down beacuse dist =");
-    Serial.println(dist);
-    stop();
-  }
-
-
+  // receive command from serial
   if (Serial.available() > 0) {
     receivedChar = Serial.read();
     switch(receivedChar) {
@@ -116,15 +136,19 @@ void loop() {
         goDown();
       break;
       case '0':
+        // switch the fan off
         fan(0);
       break;
       case '1':
+        // switch the fan to first level speed
         fan(160);
       break;
       case '2':
+        // switch the fan to second level speed
         fan(215);
       break;
       case '3':
+        // switch the fan to maximum speed
         fan(255);
       break;
       default:

@@ -15,41 +15,37 @@ class TableHandler(RPiHTTPRequestHandler):
 
   # POST /up
   def up(self):
-    self.server.serial.write("U")
-    self.render_template()
+    self.send_command("U")
 
   # POST /down
   def down(self):
-    self.server.serial.write("D")
-    self.render_template()
+    self.send_command("D")
 
   # POST /1
   def zero(self):
-    self.server.serial.write("0")
-    self.render_template()
+    self.send_command("0")
 
   # POST /1
   def one(self):
-    self.server.serial.write("1")
-    self.render_template()
+    self.send_command("1")
 
   # POST /2
   def two(self):
-    self.server.serial.write("2")
-    self.render_template()
+    self.send_command("2")
 
   # POST /3
   def three(self):
-    self.server.serial.write("3")
-    self.render_template()
+    self.send_command("3")
 
   # POST /stop
   def stop(self):
-    self.server.serial.write("X")
+    self.send_command("X")
+
+  def send_command(self, command):
+    self.server.serial.write(command)
     self.render_template()
 
   def render_template(self, template="home.html", tpl_vars={}):
-
     if self.request_xhr:
       self.content_type = "application/json"
       self.content = json.dumps(tpl_vars)
